@@ -1,0 +1,21 @@
+diff --git a/src/storage/statistics/ducklake_variant_stats.cpp b/src/storage/statistics/ducklake_variant_stats.cpp
+index cb15cad..4df0da5 100644
+--- a/src/storage/statistics/ducklake_variant_stats.cpp
++++ b/src/storage/statistics/ducklake_variant_stats.cpp
+@@ -10,6 +10,7 @@
+ #include "duckdb/parser/keyword_helper.hpp"
+ #include "storage/ducklake_metadata_info.hpp"
+ #include "yyjson.hpp"
++#include "common/ducklake_util.hpp"
+ 
+ namespace duckdb {
+ 
+@@ -208,7 +209,7 @@ bool DuckLakeColumnVariantStats::TrySerialize(string &result) const {
+ 	string out(json, len);
+ 	free(json);
+ 	yyjson_mut_doc_free(doc);
+-	result = "'" + out + "'";
++	result = DuckLakeUtil::SQLLiteralToString(out);
+ 	return true;
+ }
+ 
